@@ -28,7 +28,7 @@ class Productor(object):
                 # Esperamos entre 1 y 5 segundos para producir un mensaje.
                 sleep(random.randint(1, 5))
             mensaje = ej.generar_mensaje()
-            print(json.dumps(mensaje, indent=2))
+            print(json.dumps(mensaje))
             self.productor.send(
                 self.topico,
                 mensaje
