@@ -9,7 +9,9 @@ class Consumidor(object):
         #  https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html#
         self.consumidor = KafkaConsumer(
             topico,
-            bootstrap_servers=bootstrap_servers.split(",")
+            bootstrap_servers=bootstrap_servers.split(","),
+            auto_offset_reset='earliest', # Trae todos los mensajes disponibles
+            enable_auto_commit=False
         )
 
     def consumir(self):
