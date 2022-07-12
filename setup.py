@@ -16,6 +16,8 @@ setuptools.setup(
         },
     author_email="ulises.ramirez@datalytics.com",
     package_dir={"kafkademia": "kafkademia"},
-    install_requires=[],
     license="MIT",
+    install_requires=[
+        'kafka-python',
+    ]
 )

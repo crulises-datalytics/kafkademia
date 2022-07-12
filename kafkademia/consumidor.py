@@ -8,10 +8,12 @@ class Consumidor(object):
         # bootstrap_servers y el topico. Mas parámetros se pueden encontrar en:
         #  https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html#
         self.consumidor = KafkaConsumer(
-            bootstrap_servers=bootstrap_servers,
-            topic=topico
+            topico,
+            bootstrap_servers=bootstrap_servers.split(",")
         )
 
     def consumir(self):
         for msg in self.consumidor:
-            print(msg)
+            print("%s:%d:%d: key=%s value=%s" % (msg.topic, msg.partition,
+                                          msg.offset, msg.key,
+                                          msg.value))
