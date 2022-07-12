@@ -8,7 +8,7 @@ class ATM(object):
         self.atm_id_max = atm_id_max
         self.id_sucursal_min = atm_id_min # igual que el min para id atm
         self.id_sucursal_max = atm_id_max # igual que el max para id atm
-        self.user_id = str(uuid4())
+        self.user_id = str()
         self.mov_min = mov_min
         self.mov_max = mov_max
     
@@ -17,6 +17,8 @@ class ATM(object):
         id_sucursal = random.randint(self.id_sucursal_min, self.id_sucursal_max)
         movimiento = random.randint(self.mov_min, self.mov_max)
         hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.user_id = str(uuid4())
+        
         mensaje_atm = {
             "id_atm" : id_atm,
             "id_usuario" : self.user_id,
