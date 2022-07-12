@@ -1,8 +1,8 @@
-from .ejemplos import ATM, Sensor
+from .ejemplos import ATM, Venta
 import json
 from kafka import KafkaProducer
 import random
-from time import sleep
+from time import sleep, time
 
 class Productor(object):
     def __init__(self, bootstrap_servers:str, topico:str):
@@ -17,14 +17,19 @@ class Productor(object):
             value_serializer=lambda m: json.dumps(m).encode("utf-8"),
         )
 
-    def producir(self, ejemplo:str="sensor", cant_mensajes: int = 100, delay=True):        
-        caso = ejemplo.lower()
-        if caso == "sensor":
-            ej = Sensor()
-        elif caso == "atm":
+    def producir(self, atm, ventas, delay=True):
+        if atm:
             ej = ATM()
+        elif ventas:
+            ej = Venta()
         
-        for _ in range(cant_mensajes):
+        while True:
             if delay:
-                sleep(random.randint(1, 3))
-            ej.generar_mensaje()
+                # Esperamos entre 1 y 5 segundos para producir un mensaje.
+                sleep(random.randint(1, 5))
+            mensaje = ej.generar_mensaje()
+            print(json.dumps(mensaje, indent=2))
+            self.productor.send(
+                self.topico,
+                mensaje
+            )
